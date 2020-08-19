@@ -28,10 +28,15 @@ public class NumToRomConverter {
 		
 		//anything higher than thousands (3999) impossible by standardized methods
 		switch (number.length()) {
-		case 4: result += thousandsToRoman(number.charAt(0));
-		case 3: result += hundredsToRoman(number.charAt(1));
-		case 2: result += tensToRoman(number.charAt(2));
-		case 1: result += onesToRoman(number.charAt(3));
+		case 4: result += thousandsToRoman(number.charAt(number.length() - 4));
+		case 3: result += hundredsToRoman(number.charAt(number.length() - 3));
+		case 2: result += tensToRoman(number.charAt(number.length() - 2));
+		case 1: result += onesToRoman(number.charAt(number.length() - 1)); break;
+		default: return "Integers only, caps at 4 digits (3999), and no spaces/delimiters. Adjust accordingly";
+		}
+		
+		if (result.contains("e")) {
+			return "Integers only, caps at 4 digits (3999), and no spaces/delimiters. Adjust accordingly";
 		}
 		
 		return result;
@@ -49,7 +54,7 @@ public class NumToRomConverter {
 		case '7': return "VII";
 		case '8': return "VIII";
 		case '9': return "IX";
-		default: return "";
+		default: return "e";
 		}
 	}
 	
@@ -65,7 +70,7 @@ public class NumToRomConverter {
 		case '7': return "LXX";
 		case '8': return "LXXX";
 		case '9': return "XC";
-		default: return "";
+		default: return "e";
 		}
 	}
 	
@@ -81,7 +86,7 @@ public class NumToRomConverter {
 		case '7': return "DCC";
 		case '8': return "DCCC";
 		case '9': return "CM";
-		default: return "";
+		default: return "e";
 		}
 	}
 	private static String thousandsToRoman(char numChar) {
@@ -91,7 +96,7 @@ public class NumToRomConverter {
 		case '1': return "M";
 		case '2': return "MM";
 		case '3': return "MMM";
-		default: return "";
+		default: return "e";
 		}
 	}
 }
